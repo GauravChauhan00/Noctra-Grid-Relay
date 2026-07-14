@@ -96,11 +96,19 @@ def dataframe_preview(df: pd.DataFrame, limit: int = 8) -> list[dict[str, Any]]:
 
 def detect_and_convert_numeric(df: pd.DataFrame) -> pd.DataFrame:
     out = df.copy()
+    numeric_hints = {
+        "amount", "price", "sales", "revenue", "total", "qty", "quantity",
+        "cost", "profit", "count", "number", "sum", "rate", "val", "value"
+    }
     for column in out.columns:
-        if pd.api.types.is_numeric_dtype(
-            out[column]
-        ) or pd.api.types.is_datetime64_any_dtype(out[column]):
+        if pd.api.types.is_numeric_dtype(out[column]) or pd.api.types.is_datetime64_any_dtype(out[column]):
             continue
+        
+        # Only attempt conversion if the column name suggests a numeric value
+        column_lower = str(column).lower()
+        if not any(hint in column_lower for hint in numeric_hints):
+            continue
+
         stripped = (
             out[column]
             .dropna()
@@ -112,21 +120,7 @@ def detect_and_convert_numeric(df: pd.DataFrame) -> pd.DataFrame:
             continue
         numeric = pd.to_numeric(stripped, errors="coerce")
         ratio = numeric.notna().sum() / max(len(stripped), 1)
-        hint = any(
-            t in column.lower()
-            for t in [
-                "amount",
-                "price",
-                "sales",
-                "revenue",
-                "total",
-                "qty",
-                "quantity",
-                "cost",
-                "profit",
-            ]
-        )
-        if ratio >= 0.85 or (hint and ratio >= 0.6):
+        if ratio >= 0.5:
             out[column] = pd.to_numeric(
                 out[column].astype(str).str.replace(",", "", regex=False).str.strip(),
                 errors="coerce",
@@ -137,12 +131,19 @@ def detect_and_convert_numeric(df: pd.DataFrame) -> pd.DataFrame:
 def detect_and_convert_dates(df: pd.DataFrame) -> tuple[pd.DataFrame, list[str]]:
     out = df.copy()
     date_cols = []
+    date_hints = {"date", "day", "month", "year", "time", "created", "updated", "at"}
     for column in out.columns:
         if pd.api.types.is_datetime64_any_dtype(out[column]):
             date_cols.append(column)
             continue
         if pd.api.types.is_numeric_dtype(out[column]):
             continue
+
+        # Only attempt date parsing if the column name suggests a date/time
+        column_lower = str(column).lower()
+        if not any(hint in column_lower for hint in date_hints):
+            continue
+
         non_empty = out[column].dropna().astype(str).str.strip()
         if len(non_empty) == 0:
             continue
@@ -150,10 +151,7 @@ def detect_and_convert_dates(df: pd.DataFrame) -> tuple[pd.DataFrame, list[str]]
             warnings.simplefilter("ignore", UserWarning)
             parsed = pd.to_datetime(out[column], errors="coerce")
         ratio = parsed.notna().sum() / max(len(non_empty), 1)
-        hint = any(
-            t in column.lower() for t in ["date", "day", "month", "created", "updated"]
-        )
-        if hint or ratio >= 0.7:
+        if ratio >= 0.5:
             out[column] = parsed
             date_cols.append(column)
     return out, date_cols
@@ -174,7 +172,7 @@ def clean_dataframe(df: pd.DataFrame) -> tuple[pd.DataFrame, dict[str, Any]]:
             cleaned[column] = (
                 cleaned[column]
                 .apply(lambda x: x.strip() if isinstance(x, str) else x)
-                .replace("", pd.NA)
+                .replace({"": None})
             )
     empty_columns = [
         column for column in cleaned.columns if cleaned[column].isna().all()
