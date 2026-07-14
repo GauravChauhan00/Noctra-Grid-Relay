@@ -133,13 +133,13 @@ export default function ReportDetail() {
         />
       </section>
       <section className="glass-panel report-actions">
-        <button onClick={() => downloadReportFile(report.id, "pdf")}>
+        <button onClick={() => downloadReportFile(report.id, "pdf", report.original_filename)}>
           Download PDF
         </button>
-        <button onClick={() => downloadReportFile(report.id, "excel")}>
+        <button onClick={() => downloadReportFile(report.id, "excel", report.original_filename)}>
           Download Cleaned Excel
         </button>
-        <button onClick={() => downloadReportFile(report.id, "csv")}>
+        <button onClick={() => downloadReportFile(report.id, "csv", report.original_filename)}>
           Download CSV
         </button>
         <form onSubmit={handleEmail} className="inline-form compact">

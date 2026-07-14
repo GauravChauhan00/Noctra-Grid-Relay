@@ -13,7 +13,7 @@ import api from "../api/axios.js";
 import ChartPanel from "../components/ChartPanel.jsx";
 import PipelineSteps from "../components/PipelineSteps.jsx";
 import StatCard from "../components/StatCard.jsx";
-import { formatDate, formatNumber } from "../utils/helpers.js";
+import { formatDate, formatNumber, getSessionId } from "../utils/helpers.js";
 import { axisProps, gridProps, tooltipProps } from "../utils/chartTheme.js";
 export default function Dashboard() {
   const [reports, setReports] = useState([]);
@@ -23,6 +23,13 @@ export default function Dashboard() {
       .get("/api/reports")
       .then(({ data }) => setReports(data))
       .finally(() => setLoading(false));
+    api
+      .post("/api/analytics/visit", {
+        page: "Dashboard",
+        anonymous_session_id: getSessionId(),
+        user_agent: navigator.userAgent,
+      })
+      .catch(() => {});
   }, []);
   const stats = useMemo(
     () =>

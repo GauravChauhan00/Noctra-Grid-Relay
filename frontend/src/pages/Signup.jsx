@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
-import { getErrorMessage } from "../utils/helpers.js";
+import { getErrorMessage, getSessionId } from "../utils/helpers.js";
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -16,6 +16,15 @@ export default function Signup() {
     const timer = setTimeout(() => {
       setIsReadOnly(false);
     }, 150);
+
+    api
+      .post("/api/analytics/visit", {
+        page: "Signup Page",
+        anonymous_session_id: getSessionId(),
+        user_agent: navigator.userAgent,
+      })
+      .catch(() => {});
+
     return () => clearTimeout(timer);
   }, []);
 

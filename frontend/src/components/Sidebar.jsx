@@ -2,10 +2,10 @@ import { NavLink, Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
 
 const baseLinks = [
-  { to: "/dashboard", label: "Command Deck", icon: "✦" },
-  { to: "/upload", label: "SMTP Relay", icon: "⇪" },
-  { to: "/history", label: "Report Vault", icon: "◈" },
-  { to: "/settings", label: "Identity Core", icon: "⚙" },
+  { to: "/dashboard", label: "Overview", icon: "⊞" },
+  { to: "/upload", label: "Upload & Process", icon: "↑" },
+  { to: "/history", label: "Report History", icon: "≡" },
+  { to: "/settings", label: "Settings", icon: "⚙" },
 ];
 
 export default function Sidebar() {
@@ -22,7 +22,7 @@ export default function Sidebar() {
         <span className="brand-icon">NG</span>
         <span>
           <strong>NoctraGrid</strong>
-          <small>Relay Console</small>
+          <small>Relay Platform</small>
         </span>
       </Link>
       <div className="sidebar-user">
@@ -31,7 +31,7 @@ export default function Sidebar() {
         </div>
         <div>
           <strong>{user?.name}</strong>
-          <small>{user?.is_admin ? "Admin owner" : "Workspace user"}</small>
+          <small>{user?.is_admin ? "Administrator" : "Member"}</small>
         </div>
       </div>
       <nav className="sidebar-nav">
@@ -52,16 +52,16 @@ export default function Sidebar() {
               isActive ? "active admin-link" : "admin-link"
             }
           >
-            <span>🛡</span><b>Owner Console</b>
+            <span>🛡</span><b>Admin Panel</b>
           </NavLink>
         )}
       </nav>
       <div className="sidebar-footer">
         <div className="relay-health-card">
-          <small>Relay stack</small>
-          <strong>Upload → Clean → PDF → SMTP</strong>
+          <small>Processing pipeline</small>
+          <strong>Upload · Clean · Report · Deliver</strong>
           <div className="mini-pipeline">
-            <span>Excel</span>
+            <span>Data</span>
             <i />
             <span>Report</span>
             <i />
@@ -69,7 +69,7 @@ export default function Sidebar() {
           </div>
         </div>
         <button className="ghost-button full" onClick={handleLogout}>
-          Logout
+          Log Out
         </button>
       </div>
     </aside>
