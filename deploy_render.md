@@ -17,7 +17,7 @@ Follow these exact steps to deploy the Backend and Frontend of NoctraGrid Relay 
 | **Root Directory** | `backend` |
 | **Runtime** | `Python` |
 | **Build Command** | `pip install -r requirements.txt` |
-| **Start Command** | `uvicorn app.main:app --host 0.0.0.0 --port $PORT` |
+| **Start Command** | `uvicorn app.main:app --host 0.0.0.0 --port $PORT --loop asyncio` |
 | **Instance Type** | `Free` |
 
 5. Scroll down and click **"Advanced"**. Under **"Environment Variables"**, add the following keys:
