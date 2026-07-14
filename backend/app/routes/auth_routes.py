@@ -140,9 +140,14 @@ def forgot_password(payload: ForgotPasswordRequest, db: Session = Depends(get_db
       <p style="color:#9ca3af;font-size:12px;">NoctraGrid Relay &mdash; Automated Data Processing Platform</p>
     </div>
     """
-    send_smtp_email(to_email=email, subject="Your NoctraGrid Relay password reset code", html=html)
+    res = send_smtp_email(to_email=email, subject="Your NoctraGrid Relay password reset code", html=html)
+    if not res.get("sent"):
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Email failed to send. Please check admin SMTP settings. Details: {res.get('message')}"
+        )
     log_activity(db, "forgot_password", f"Password reset OTP sent to {email}")
-    return {"message": "If that email is registered, an OTP has been sent."}
+    return {"message": "Verification code sent to your email address."}
 
 
 @router.post("/verify-otp", response_model=MessageResponse)

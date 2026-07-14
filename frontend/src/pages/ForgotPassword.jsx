@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../api/axios.js";
 import { getErrorMessage } from "../utils/helpers.js";
@@ -17,15 +17,46 @@ export default function ForgotPassword() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [resendTimer, setResendTimer] = useState(0);
+
+  // Resend code countdown timer
+  useEffect(() => {
+    if (resendTimer <= 0) return;
+    const timer = setInterval(() => {
+      setResendTimer((prev) => prev - 1);
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [resendTimer]);
+
+  function startResendCountdown() {
+    setResendTimer(30);
+  }
 
   async function handleRequestOTP(e) {
     e.preventDefault();
     setLoading(true);
     setError("");
+    setSuccess("");
     try {
       const { data } = await api.post("/api/auth/forgot-password", { email });
       setSuccess(data.message);
       setStep(2);
+      startResendCountdown();
+    } catch (err) {
+      setError(getErrorMessage(err));
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleResendOTP() {
+    setLoading(true);
+    setError("");
+    setSuccess("");
+    try {
+      const { data } = await api.post("/api/auth/forgot-password", { email });
+      setSuccess(data.message);
+      startResendCountdown();
     } catch (err) {
       setError(getErrorMessage(err));
     } finally {
@@ -37,6 +68,7 @@ export default function ForgotPassword() {
     e.preventDefault();
     setLoading(true);
     setError("");
+    setSuccess("");
     try {
       await api.post("/api/auth/verify-otp", { email, otp_code: otp });
       setStep(3);
@@ -56,6 +88,7 @@ export default function ForgotPassword() {
     }
     setLoading(true);
     setError("");
+    setSuccess("");
     try {
       const { data } = await api.post("/api/auth/reset-password", {
         email,
@@ -146,6 +179,28 @@ export default function ForgotPassword() {
                 />
               </label>
               {error && <p className="form-status error">{error}</p>}
+              {success && <p className="form-status success">{success}</p>}
+              
+              <div className="otp-resend-row" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "4px", marginBottom: "12px" }}>
+                <span style={{ fontSize: "13px", color: "var(--muted)" }}>Didn't receive the code?</span>
+                <button
+                  type="button"
+                  disabled={resendTimer > 0 || loading}
+                  onClick={handleResendOTP}
+                  style={{
+                    background: "none",
+                    border: "none",
+                    color: resendTimer > 0 ? "var(--muted)" : "var(--green)",
+                    fontWeight: 700,
+                    cursor: resendTimer > 0 ? "default" : "pointer",
+                    fontSize: "13px",
+                    padding: 0
+                  }}
+                >
+                  {resendTimer > 0 ? `Resend in ${resendTimer}s` : "Resend Code"}
+                </button>
+              </div>
+
               <button className="primary-button full" disabled={loading || otp.length !== 6}>
                 {loading ? "Verifying..." : "Verify Code"}
               </button>
@@ -153,7 +208,7 @@ export default function ForgotPassword() {
                 type="button"
                 className="ghost-button full"
                 style={{ marginTop: "8px" }}
-                onClick={() => { setStep(1); setError(""); setOtp(""); }}
+                onClick={() => { setStep(1); setError(""); setOtp(""); setSuccess(""); }}
               >
                 ← Change email
               </button>
