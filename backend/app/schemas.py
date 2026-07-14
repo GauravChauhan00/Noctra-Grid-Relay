@@ -85,3 +85,23 @@ class LeadCreate(BaseModel):
     email: EmailStr
     company_role: Optional[str] = None
     message: str
+
+
+class ForgotPasswordRequest(BaseModel):
+    email: EmailStr
+
+
+class VerifyOTPRequest(BaseModel):
+    email: EmailStr
+    otp_code: str
+
+
+class ResetPasswordRequest(BaseModel):
+    email: EmailStr
+    otp_code: str
+    new_password: str = Field(min_length=6)
+
+
+class MessageResponse(BaseModel):
+    message: str
+

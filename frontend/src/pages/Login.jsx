@@ -111,6 +111,13 @@ export default function Login() {
               onChange={(e) => setForm({ ...form, password: e.target.value })}
             />
           </label>
+          {!isAdmin && (
+            <div className="auth-helper-row" style={{ display: "flex", justifyContent: "flex-end", marginTop: "-8px", marginBottom: "16px" }}>
+              <Link to="/forgot-password" style={{ fontSize: "13px", color: "var(--green)", fontWeight: 600, textDecoration: "none" }}>
+                Forgot Password?
+              </Link>
+            </div>
+          )}
           {error && <p className="form-status error">{error}</p>}
           <button className="primary-button full" disabled={loading}>
             {loading

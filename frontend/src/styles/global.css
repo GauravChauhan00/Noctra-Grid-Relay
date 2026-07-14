@@ -664,3 +664,68 @@ label {
   .auth-shell { padding: 1rem; }
   .auth-tabs  { grid-template-columns: 1fr; }
 }
+
+/* ─── Forgot Password / OTP Recovery ───────────────────── */
+.otp-steps {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  background: var(--panel-soft);
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+}
+
+.otp-step {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  opacity: 0.45;
+  transition: all 0.2s ease;
+}
+
+.otp-step.active {
+  opacity: 1;
+}
+
+.otp-step.done {
+  opacity: 0.75;
+}
+
+.otp-step-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 50%;
+  background: var(--muted-3);
+  color: var(--dark);
+}
+
+.otp-step.active .otp-step-num {
+  background: var(--green);
+  color: #ffffff;
+}
+
+.otp-step.done .otp-step-num {
+  background: var(--green);
+  color: #ffffff;
+}
+
+.otp-step-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.otp-input {
+  letter-spacing: 0.5em;
+  font-size: 1.5rem !important;
+  text-align: center;
+  font-weight: 800;
+}
