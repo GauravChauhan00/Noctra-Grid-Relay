@@ -1,64 +1,63 @@
 # NoctraGrid Relay
 
-**Obsidian-grade spreadsheet intelligence that cleans, reports, and delivers itself.**
+**Automated Data Processing & Report Delivery Platform**
 
-NoctraGrid Relay is a full-stack React + FastAPI spreadsheet automation project. A user uploads Excel/CSV, enters an email address, and the backend automatically cleans the data, generates a professional PDF report, saves report history, and sends the generated PDF using **Google App Password SMTP**.
+NoctraGrid Relay is a professional, full-stack application designed to streamline data processing workflows. Users can upload raw datasets (Excel/CSV), automatically clean and standardize records, generate visual PDF reports, and deliver findings directly to target inboxes in a single automated step.
 
-## Main features
+---
 
-- Premium dark hacker-style React UI.
-- User signup/login and admin-only analytics.
-- Excel/CSV upload with preview.
-- Pandas data cleaning.
-- Cleaned Excel/CSV export.
-- ReportLab PDF generation.
-- One-click **Generate PDF + Auto Email** workflow.
-- Gmail SMTP App Password email delivery. No Render mail system and no third-party email API required.
-- Report history and report detail pages.
-- Admin user/report/lead/visit/activity management.
-- Vercel frontend + Railway backend ready.
+## Key Features
 
-## Important documentation
+- **Personal Workspace:** Individual dashboard for members to upload files, process reports, and view historical runs.
+- **Data Hygiene Engine:** Automated duplicate detection, gap correction, and data formatting powered by Python Pandas.
+- **Custom Visual Reporting:** Automated generation of professional PDF reports featuring charts, category shares, and date trends.
+- **Automated Dispatch:** Secure email delivery of compiled PDF reports directly to destination inboxes.
+- **Administrative Dashboard:** Platform-wide oversight to monitor system metrics, user access, logs, and overall system activity.
+- **Access Control:** Secure authentication and role-based path protection separating administrative portals from standard members.
 
-Read the complete architecture, workflow, API, deployment, SMTP, React, backend, file-by-file explanation here:
+---
 
-[`docs/NOCTRAGRID_RELAY_COMPLETE_DOCUMENTATION_HINGLISH.md`](docs/NOCTRAGRID_RELAY_COMPLETE_DOCUMENTATION_HINGLISH.md)
+## Tech Stack
 
-## Local backend
+- **Frontend:** React, React Router, Vite, Recharts, Lucide Icons, CSS
+- **Backend:** FastAPI, Python, SQLAlchemy (SQLite/PostgreSQL), Pandas, ReportLab
 
-```bash
-cd backend
-python -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-cp .env.example .env
-uvicorn app.main:app --reload
-```
+---
 
-## Local frontend
+## Local Setup
 
-```bash
-cd frontend
-npm install
-cp .env.example .env
-npm run dev
-```
+### Backend
 
-## Gmail SMTP variables
+1. Navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
+2. Create and activate a virtual environment:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. Configure environment variables in `.env` (refer to `.env.example`).
+5. Start the development server:
+   ```bash
+   uvicorn app.main:app --reload
+   ```
 
-Add these in `backend/.env` locally or Railway variables in production:
+### Frontend
 
-```env
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_USE_TLS=true
-SMTP_USE_SSL=false
-SMTP_USERNAME=your-gmail-address@gmail.com
-SMTP_APP_PASSWORD=your_16_character_google_app_password
-SMTP_FROM_NAME=NoctraGrid Relay
-SMTP_FROM_EMAIL=your-gmail-address@gmail.com
-SMTP_REPLY_TO_EMAIL=your-gmail-address@gmail.com
-OWNER_ALERT_EMAIL=your-gmail-address@gmail.com
-```
-
-Never commit your real Google App Password.
+1. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
