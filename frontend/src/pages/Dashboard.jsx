@@ -57,14 +57,14 @@ export default function Dashboard() {
     <div className="page-stack">
       <header className="page-header">
         <div>
-          <span className="eyebrow">Command deck</span>
-          <h1>NoctraGrid relay overview</h1>
+          <span className="eyebrow">Overview</span>
+          <h1>Data pipelines overview</h1>
           <p>
-            Track uploads, cleaned rows, report vault activity, downloads, and Gmail SMTP delivery status from one dark control surface.
+            Track uploads, processed rows, historical reports, downloads, and automated delivery status from one centralized surface.
           </p>
         </div>
         <Link className="primary-button" to="/upload">
-          Run New Relay
+          Process New File
         </Link>
       </header>
       <section className="stats-grid">
@@ -86,17 +86,17 @@ export default function Dashboard() {
           accent="violet"
         />
         <StatCard
-          label="SMTP Emails Sent"
+          label="Emails Delivered"
           value={formatNumber(stats.emailed)}
-          hint="Via Gmail SMTP"
+          hint="To target inboxes"
           accent="amber"
         />
       </section>
       <section className="glass-panel workflow-panel">
         <div className="panel-heading">
           <div>
-            <h3>Relay automation pipeline</h3>
-            <p>Every report follows the same upload-to-inbox workflow.</p>
+            <h3>Processing pipeline</h3>
+            <p>Every report follows the same upload-to-delivery workflow.</p>
           </div>
         </div>
         <PipelineSteps currentStep={reports.length ? 4 : 0} />

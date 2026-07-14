@@ -94,10 +94,10 @@ export default function Analytics() {
     <div className="page-stack">
       <header className="page-header">
         <div>
-          <span className="eyebrow">🛡 Private owner console</span>
-          <h1>Admin control center</h1>
+          <span className="eyebrow">🛡 Administrative Dashboard</span>
+          <h1>System administration console</h1>
           <p>
-            View visits, leads, all users, all reports, email status, and every important platform activity. These APIs are protected by backend admin checks.
+            Monitor platform metrics, user access, data logs, inquiries, and overall system activity. Access restricted to authorized administrative users only.
           </p>
         </div>
       </header>

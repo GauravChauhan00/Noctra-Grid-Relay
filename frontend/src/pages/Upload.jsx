@@ -84,7 +84,7 @@ export default function Upload() {
       setEmailSent(false);
       setMessage({
         type: "success",
-        text: "File uploaded. Enter recipient email and run the SMTP auto-delivery pipeline.",
+        text: "File uploaded successfully. Specify the destination email below to process and dispatch the report.",
       });
     } catch (error) {
       setMessage({ type: "error", text: getErrorMessage(error) });
@@ -182,10 +182,10 @@ export default function Upload() {
     <div className="page-stack">
       <header className="page-header">
         <div>
-          <span className="eyebrow">⚡ SMTP relay workflow</span>
-          <h1>Upload once. Enter email. PDF delivers itself.</h1>
+          <span className="eyebrow">⚡ Processing Pipeline</span>
+          <h1>Smart analysis and automated delivery</h1>
           <p>
-            Upload any .xlsx or .csv, then run the one-click automation that cleans data, generates a PDF report, saves history, and sends the PDF through Google App Password SMTP.
+            Upload your source spreadsheet (.xlsx or .csv) and initiate our one-click workflow to validate data, generate structured PDF insights, archive the report, and deliver it instantly via email.
           </p>
         </div>
       </header>
@@ -212,10 +212,10 @@ export default function Upload() {
           )}
         </div>
         <div className="glass-panel action-card relay-card">
-          <span className="eyebrow">✉ Gmail SMTP auto-send</span>
-          <h3>Generate PDF & email automatically</h3>
+          <span className="eyebrow">✉ Automated Dispatch</span>
+          <h3>Analyze, package, and send</h3>
           <p>
-            The user only needs to enter the recipient email. Backend will clean, generate, attach, send, and update history in one protected API call.
+            Simply define the destination email. Our server will automatically sanitize the records, compile visual charts, generate a PDF report, and send it directly to the inbox in a single step.
           </p>
           <form onSubmit={handleAutoWorkflow} className="relay-form">
             <label>

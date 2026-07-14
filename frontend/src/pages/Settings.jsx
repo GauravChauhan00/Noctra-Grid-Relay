@@ -6,10 +6,10 @@ export default function Settings() {
     <div className="page-stack">
       <header className="page-header">
         <div>
-          <span className="eyebrow">Identity core</span>
-          <h1>Relay workspace settings</h1>
+          <span className="eyebrow">Settings</span>
+          <h1>Account & security</h1>
           <p>
-            Profile view for JWT authentication, user scope, and admin role explanation.
+            Manage your account credentials, security settings, and platform privileges.
           </p>
         </div>
       </header>
@@ -21,7 +21,7 @@ export default function Settings() {
           <h3>{user?.name}</h3>
           <p>{user?.email}</p>
           <span className="status-pill">
-            {user?.is_admin ? "Admin owner" : "Normal user"}
+            {user?.is_admin ? "Administrator" : "Member"}
           </span>
         </article>
         <article className="glass-panel settings-card">
@@ -39,19 +39,14 @@ export default function Settings() {
             <strong>{user?.is_admin ? "Enabled" : "Disabled"}</strong>
           </div>
           <div className="settings-row">
-            <span>API Base URL</span>
-            <strong>
-              {import.meta.env.VITE_API_BASE_URL || "http://localhost:8000"}
-            </strong>
+            <span>API Server Status</span>
+            <strong>Connected</strong>
           </div>
         </article>
         <article className="glass-panel settings-card full-width">
-          <h3>Admin privacy model</h3>
+          <h3>Access Control Model</h3>
           <p>
-            Normal users can upload files, generate reports, email their own
-            reports, and view only their own history. Admin users get one extra
-            Analytics route. Backend dependencies still protect the analytics
-            APIs with 403 Forbidden for non-admin users.
+            Members can upload files, process reports, send emails, and view their individual data pipeline history. Administrative users have access to system-wide dashboards, logs, and user management tools. Access to sensitive data is protected via secure server-side authorization.
           </p>
         </article>
       </section>

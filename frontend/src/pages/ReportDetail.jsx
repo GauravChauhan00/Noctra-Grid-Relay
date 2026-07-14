@@ -104,7 +104,7 @@ export default function ReportDetail() {
     <div className="page-stack">
       <header className="page-header">
         <div>
-          <span className="eyebrow">Relay report detail</span>
+          <span className="eyebrow">Report details</span>
           <h1>{summary.report_title || report.original_filename}</h1>
           <p>
             Created {formatDate(report.created_at)} · Status: {report.status}
@@ -217,8 +217,8 @@ export default function ReportDetail() {
       <section className="glass-panel insights-panel">
         <div className="panel-heading">
           <div>
-            <h3>Explainable relay insights</h3>
-            <p>Explainable insights generated from cleaned columns.</p>
+            <h3>Key findings & insights</h3>
+            <p>Automatically identified trends and key data markers from the processed dataset.</p>
           </div>
         </div>
         <div className="insight-list">
