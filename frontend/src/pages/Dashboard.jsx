@@ -106,8 +106,8 @@ export default function Dashboard() {
               <XAxis dataKey="name" {...axisProps} />
               <YAxis {...axisProps} />
               <Tooltip {...tooltipProps} />
-              <Bar dataKey="rows" radius={[8, 8, 0, 0]} />
-              <Bar dataKey="duplicates" radius={[8, 8, 0, 0]} />
+              <Bar dataKey="rows" fill="var(--green)" radius={[6, 6, 0, 0]} />
+              <Bar dataKey="duplicates" fill="var(--teal)" radius={[6, 6, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </ChartPanel>

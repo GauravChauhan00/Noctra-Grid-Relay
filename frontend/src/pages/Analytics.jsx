@@ -146,7 +146,7 @@ export default function Analytics() {
               <XAxis dataKey="page" {...axisProps} />
               <YAxis {...axisProps} />
               <Tooltip {...tooltipProps} />
-              <Bar dataKey="visits" radius={[8, 8, 0, 0]} />
+              <Bar dataKey="visits" fill="var(--green)" radius={[6, 6, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </ChartPanel>
