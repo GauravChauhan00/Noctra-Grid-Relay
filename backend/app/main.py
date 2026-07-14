@@ -49,10 +49,12 @@ def bootstrap_owner_account():
 
 
 @app.get("/")
+@app.head("/")
 def root():
     return {"message": "NoctraGrid Relay API is running"}
 
 
 @app.get("/health")
+@app.head("/health")
 def health():
     return {"status": "healthy"}
