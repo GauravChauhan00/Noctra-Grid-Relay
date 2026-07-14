@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
+import api from "../api/axios.js";
 import { getErrorMessage, getSessionId } from "../utils/helpers.js";
 
 export default function Signup() {
