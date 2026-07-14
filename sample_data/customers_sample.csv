@@ -1,0 +1,11 @@
+Customer ID,Signup Date,Name,Email,Company Role,City,Revenue,Plan
+CUS-001,2026-02-01,Rahul Sharma,rahul@example.com,Data Analyst,Mumbai,45000,Pro
+CUS-002,2026-02-02, Priya Singh ,priya@example.com,Founder,Delhi,,Business
+CUS-003,2026-02-03,Aman Verma,,Operations,Bengaluru,18000,Starter
+CUS-004,2026-02-04,Neha Kapoor,neha@example.com,,Pune,22000,Starter
+CUS-005,2026-02-05,Ishaan Mehta,ishaan@example.com,Sales Lead,,70000,Business
+CUS-006,2026-02-06,Sara Khan,sara@example.com,Product Manager,Hyderabad,54000,Pro
+CUS-006,2026-02-06,Sara Khan,sara@example.com,Product Manager,Hyderabad,54000,Pro
+CUS-007,2026-02-07,  Vikram Rao,vikram@example.com,Consultant,Chennai,32000,
+CUS-008,2026-02-08,Ananya Das,ananya@example.com,Marketing,Kolkata,27000,Pro
+CUS-009,2026-02-09,Karan Malhotra,karan@example.com,Finance,Gurugram,,Starter

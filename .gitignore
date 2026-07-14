@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.env
+*.db
+*.sqlite3
+
+# Runtime storage
+backend/app/storage/uploads/*
+backend/app/storage/cleaned/*
+backend/app/storage/reports/*
+!backend/app/storage/uploads/.gitkeep
+!backend/app/storage/cleaned/.gitkeep
+!backend/app/storage/reports/.gitkeep
+
+# Node
+node_modules/
+dist/
+.env.local
+.env.production
+
+# OS/editors/logs
+.DS_Store
+.vscode/
+.idea/
+*.log
