@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { 
-  FileSpreadsheet, 
-  FileBarChart, 
-  Mail, 
-  Shield, 
-  UploadCloud, 
-  Sparkles 
+import {
+  FileSpreadsheet,
+  FileBarChart,
+  Mail,
+  Shield,
+  UploadCloud,
+  Filter,
 } from "lucide-react";
 import api from "../api/axios";
 import Navbar from "../components/Navbar.jsx";
@@ -15,25 +15,27 @@ import { getErrorMessage, getSessionId } from "../utils/helpers.js";
 const features = [
   {
     icon: <FileSpreadsheet size={20} />,
-    title: "Smart Excel Cleaning",
-    text: "Remove duplicates, fill blanks, trim spaces, standardize columns, and detect dates/numbers automatically.",
+    title: "Intelligent Data Cleaning",
+    text: "Automatically detects and corrects data quality issues — removes duplicates, fills gaps, and standardizes formats so your data is always analysis-ready.",
   },
   {
     icon: <FileBarChart size={20} />,
-    title: "Premium Reports",
-    text: "Generate detailed analytics, PDF summaries, category breakdowns, insights, and clean Excel/CSV downloads.",
+    title: "Automated Report Generation",
+    text: "Turns your raw uploads into polished, structured PDF reports with visual summaries, breakdowns, and downloadable outputs — in seconds.",
   },
   {
     icon: <Mail size={20} />,
-    title: "Gmail App Password Relay",
-    text: "Attach and send generated PDFs using your own Gmail SMTP app password. No paid email API required.",
+    title: "Instant Email Delivery",
+    text: "Reports are automatically delivered to the right inbox as soon as they're ready. No manual downloads or forwarding required.",
   },
   {
     icon: <Shield size={20} />,
-    title: "Secure Workspace",
-    text: "Review files, visitor metrics, generated reports, and secure SMTP mail logs directly from your private workspace.",
+    title: "Full Admin Visibility",
+    text: "A dedicated admin panel gives complete oversight — monitor usage, manage users, track report history, and review activity across the platform.",
   },
 ];
+
+const year = new Date().getFullYear();
 
 export default function Landing() {
   const [lead, setLead] = useState({
@@ -64,7 +66,7 @@ export default function Landing() {
       setLead({ name: "", email: "", company_role: "", message: "" });
       setStatus({
         type: "success",
-        text: "Message submitted. It is saved in Admin Analytics and emailed to the owner when Gmail SMTP + OWNER_ALERT_EMAIL are configured.",
+        text: "Thank you! We've received your message and will get back to you shortly.",
       });
     } catch (error) {
       setStatus({ type: "error", text: getErrorMessage(error) });
@@ -79,26 +81,29 @@ export default function Landing() {
       <div className="ambient-orb orb-two" />
       <Navbar />
 
+      {/* ── Hero ─────────────────────────────────────── */}
       <section className="hero-section">
         <div className="hero-copy">
-          <span className="eyebrow">⚡ NoctraGrid Relay · SMTP-powered spreadsheet intelligence</span>
-          <h1>Obsidian-grade spreadsheet intelligence that cleans, reports, and delivers itself.</h1>
+          <span className="eyebrow">NoctraGrid Relay · Intelligent Data Processing</span>
+          <h1>Upload your data. Get clean reports delivered automatically.</h1>
           <p>
-            Upload Excel or CSV files, clean messy data, generate professional PDFs, and auto-deliver them with your own Google App Password SMTP relay.
+            NoctraGrid Relay handles everything — from messy spreadsheets to
+            polished, professional reports sent directly to your inbox. Simple,
+            fast, and completely automated.
           </p>
           <div className="hero-actions">
             <Link className="primary-button" to="/signup">
-              Launch Relay Workspace
+              Get Started Free
             </Link>
-            <Link className="secondary-button" to="/login?role=admin">
-              Admin Login
+            <Link className="secondary-button" to="/login">
+              Sign In
             </Link>
           </div>
           <div className="trust-row">
-            <span>⚙ FastAPI</span>
-            <span>🧾 PDF reports</span>
-            <span>🔐 Fully Secure</span>
-            <span>🚀Accurate Data</span>
+            <span>No setup required</span>
+            <span>Automated reports</span>
+            <span>Instant delivery</span>
+            <span>Role-based access</span>
           </div>
         </div>
 
@@ -107,23 +112,23 @@ export default function Landing() {
             <span />
             <span />
             <span />
-            <p>Relay console</p>
+            <p>Dashboard</p>
           </div>
           <div className="preview-grid">
             <article>
-              <small>Rows cleaned</small>
+              <small>Records processed</small>
               <strong>12.8k</strong>
-              <span>+98% quality</span>
+              <span>+98% accuracy</span>
             </article>
             <article>
               <small>Reports</small>
               <strong>42</strong>
-              <span>saved</span>
+              <span>generated</span>
             </article>
             <article>
-              <small>Email jobs</small>
+              <small>Delivered</small>
               <strong>31</strong>
-              <span>Gmail SMTP</span>
+              <span>on time</span>
             </article>
           </div>
           <div className="mock-chart">
@@ -141,36 +146,41 @@ export default function Landing() {
             <span />
             <b>Report</b>
             <span />
-            <b>Email</b>
+            <b>Deliver</b>
             <span />
-            <b>Admin</b>
+            <b>Review</b>
           </div>
         </div>
       </section>
 
+      {/* ── Workflow ─────────────────────────────────── */}
       <section id="workflow" className="landing-section">
-        <span className="eyebrow center">How it works</span>
-        <h2>A complete upload-to-inbox pipeline with a hacker-clean control surface.</h2>
+        <span className="eyebrow center">How It Works</span>
+        <h2>From raw data to ready-to-share reports in minutes.</h2>
         <div className="workflow-line">
           {[
-            [<UploadCloud size={20} />, "Upload Excel"],
-            [<Sparkles size={20} />, "Clean Data"],
-            [<FileBarChart size={20} />, "Generate Report"],
-            [<Mail size={20} />, "Email Report"],
-            [<Shield size={20} />, "Admin Analytics"],
-          ].map(([icon, step], index) => (
+            [<UploadCloud size={18} />, "Upload File", "Drop any spreadsheet"],
+            [<Filter size={18} />, "Auto Clean", "Errors fixed instantly"],
+            [<FileBarChart size={18} />, "Build Report", "Structured PDF output"],
+            [<Mail size={18} />, "Deliver", "Sent to your inbox"],
+            [<Shield size={18} />, "Admin Review", "Full visibility & control"],
+          ].map(([icon, step, desc], index) => (
             <div className="workflow-node" key={step}>
               <span>{icon}</span>
-              <strong>{step}</strong>
-              <small>Step {index + 1}</small>
+              <div className="workflow-text">
+                <strong>{step}</strong>
+                <small>{desc}</small>
+              </div>
+              <em>0{index + 1}</em>
             </div>
           ))}
         </div>
       </section>
 
+      {/* ── Features ─────────────────────────────────── */}
       <section id="features" className="landing-section feature-section">
-        <span className="eyebrow center">Product features</span>
-        <h2>Premium hacker UI backed by real automation, real files, and real SMTP delivery.</h2>
+        <span className="eyebrow center">Core Capabilities</span>
+        <h2>Everything your team needs. Nothing you don't.</h2>
         <div className="feature-grid">
           {features.map((feature) => (
             <article key={feature.title} className="feature-card glass-panel">
@@ -182,15 +192,19 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* ── Dashboard preview ─────────────────────────── */}
       <section className="landing-section dashboard-preview-section">
         <div>
-          <span className="eyebrow">Dashboard preview</span>
-          <h2>Separate user workspace and private owner controls.</h2>
+          <span className="eyebrow">Platform</span>
+          <h2>A workspace built for clarity and control.</h2>
           <p>
-            Users can upload, clean, auto-email PDFs, download outputs, and delete their own reports. Admin gets protected analytics, user/report management, leads, visits, SMTP status, and activity logs.
+            Each user gets a personal workspace to upload, process, and track
+            their reports. Admins get a powerful overview — managing users,
+            reviewing activity, and ensuring everything runs smoothly across
+            the platform.
           </p>
         </div>
-        <div className="dashboard-mock glass-panel">
+        <div className="dashboard-mock">
           <div className="mock-sidebar" />
           <div className="mock-content">
             <div className="mock-stats">
@@ -209,38 +223,44 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* ── Contact ───────────────────────────────────── */}
       <section id="contact" className="landing-section contact-section">
         <div className="contact-copy">
-          <span className="eyebrow">Demo interest</span>
-          <h2>Want a walkthrough or want to review the project?</h2>
+          <span className="eyebrow">Get In Touch</span>
+          <h2>Have a question? We'd love to hear from you.</h2>
           <p>
-            Submit the form. The lead is stored in the database and visible in Admin Analytics. When OWNER_ALERT_EMAIL is configured, the same message is delivered to the owner inbox through Gmail SMTP.
+            Whether you're evaluating the platform, need a walkthrough, or
+            want to discuss a specific use case — reach out and we'll respond
+            promptly.
           </p>
           <div className="privacy-note">
-            🔒 Only basic anonymous page visits and form details are stored for this demo.
+            Your information is kept private and used only to respond to your inquiry.
           </div>
         </div>
         <form className="lead-form glass-panel" onSubmit={handleLeadSubmit}>
           <label>
-            Name
+            Full Name
             <input
               required
+              placeholder="Your name"
               value={lead.name}
               onChange={(e) => setLead({ ...lead, name: e.target.value })}
             />
           </label>
           <label>
-            Email
+            Email Address
             <input
               required
               type="email"
+              placeholder="you@example.com"
               value={lead.email}
               onChange={(e) => setLead({ ...lead, email: e.target.value })}
             />
           </label>
           <label>
-            Company/Role optional
+            Company / Role <span className="field-optional">(optional)</span>
             <input
+              placeholder="e.g. Data Analyst at Acme Corp"
               value={lead.company_role}
               onChange={(e) =>
                 setLead({ ...lead, company_role: e.target.value })
@@ -252,6 +272,7 @@ export default function Landing() {
             <textarea
               required
               rows="4"
+              placeholder="Tell us what you're looking for..."
               value={lead.message}
               onChange={(e) => setLead({ ...lead, message: e.target.value })}
             />
@@ -260,16 +281,14 @@ export default function Landing() {
             <p className={`form-status ${status.type}`}>{status.text}</p>
           )}
           <button className="primary-button full" disabled={submitting}>
-            {submitting ? "Submitting..." : "Submit Interest"}
+            {submitting ? "Sending..." : "Send Message"}
           </button>
         </form>
       </section>
 
       <footer className="landing-footer">
-        <strong>NoctraGrid Relay</strong>
-        <span>
-          Developer: Gaurav (gaurav949855@gmail.com)
-        </span>
+        <span>© {year} NoctraGrid Relay. All rights reserved.</span>
+        <strong> Developer Contact: Gaurav94855@gmail.com</strong>
       </footer>
     </div>
   );

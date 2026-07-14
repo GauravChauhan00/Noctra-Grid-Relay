@@ -61,11 +61,11 @@ export default function Login() {
         <span className="eyebrow">
           {isAdmin ? "Owner access" : "Welcome back"}
         </span>
-        <h1>{isAdmin ? "Login as the private admin owner" : "Login to your automation workspace"}</h1>
+        <h1>{isAdmin ? "Admin Portal Login" : "Log in to your workspace"}</h1>
         <p className="auth-intro">
           {isAdmin
-            ? "Admin login is locked to the backend ADMIN_EMAIL and ADMIN_PASSWORD values. Normal users cannot access analytics or management routes."
-            : "User login gives access to uploads, cleaning, reports, emails, and personal history only."}
+            ? "Admin login is restricted to authorized platform administrators. Regular users cannot access system-wide analytics or configurations."
+            : "Log in to your workspace to upload files, generate reports, and manage your delivery pipelines."}
         </p>
 
         <form onSubmit={handleSubmit }>

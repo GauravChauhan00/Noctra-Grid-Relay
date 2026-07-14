@@ -58,11 +58,11 @@ export default function Signup() {
         <span className="eyebrow">
           {isAdmin ? "Admin owner" : "Create workspace"}
         </span>
-        <h1>{isAdmin ? "Use owner credentials from backend env" : "Start cleaning Excel reports in minutes"}</h1>
+        <h1>{isAdmin ? "Admin Portal Access" : "Start standardizing your data in minutes"}</h1>
         <p className="auth-intro">
           {isAdmin
-            ? "Only the configured ADMIN_EMAIL account becomes admin. Change it from backend .env or Railway variables anytime."
-            : "Normal users get upload, clean, report, email, and history features without admin analytics access."}
+            ? "Access administrative tools, system settings, visitor analytics, and platform logs."
+            : "Create a free workspace to clean data, generate PDF reports, and automate email delivery."}
         </p>
 
         <form onSubmit={handleSubmit}>

@@ -55,6 +55,11 @@ def login(payload: UserLogin, db: Session = Depends(get_db)):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid email or password"
         )
+    if user.is_admin:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Admin accounts must use the Admin Login portal.",
+        )
     log_activity(db, "login", f"{user.name} logged in", user.email)
     return auth_payload(user)
 
