@@ -68,12 +68,13 @@ export default function Login() {
             : "Log in to your workspace to upload files, generate reports, and manage your delivery pipelines."}
         </p>
 
-        <form onSubmit={handleSubmit }>
+        <form onSubmit={handleSubmit} autoComplete="off">
           <label>
             {isAdmin ? "Admin ID / Email" : "Email"}
             <input
               type="email"
               required
+              autoComplete="off"
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
             />
@@ -83,6 +84,7 @@ export default function Login() {
             <input
               type="password"
               required
+              autoComplete="new-password"
               value={form.password}
               onChange={(e) => setForm({ ...form, password: e.target.value })}
             />

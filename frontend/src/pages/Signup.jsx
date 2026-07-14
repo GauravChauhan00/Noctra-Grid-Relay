@@ -65,12 +65,13 @@ export default function Signup() {
             : "Create a free workspace to clean data, generate PDF reports, and automate email delivery."}
         </p>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} autoComplete="off">
           {!isAdmin && (
             <label>
               Name
               <input
                 required
+                autoComplete="off"
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
               />
@@ -81,6 +82,7 @@ export default function Signup() {
             <input
               type="email"
               required
+              autoComplete="off"
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
             />
@@ -90,6 +92,7 @@ export default function Signup() {
             <input
               type="password"
               required
+              autoComplete="new-password"
               minLength={isAdmin ? undefined : 6}
               value={form.password}
               onChange={(e) => setForm({ ...form, password: e.target.value })}
