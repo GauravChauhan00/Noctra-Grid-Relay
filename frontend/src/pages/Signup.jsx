@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
 import { getErrorMessage } from "../utils/helpers.js";
@@ -10,6 +10,14 @@ export default function Signup() {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isReadOnly, setIsReadOnly] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsReadOnly(false);
+    }, 150);
+    return () => clearTimeout(timer);
+  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -65,13 +73,15 @@ export default function Signup() {
             : "Create a free workspace to clean data, generate PDF reports, and automate email delivery."}
         </p>
 
-        <form onSubmit={handleSubmit} autoComplete="off">
+        <form onSubmit={handleSubmit}>
           {!isAdmin && (
             <label>
               Name
               <input
                 required
-                autoComplete="off"
+                autoComplete="new-password"
+                readOnly={isReadOnly}
+                onFocus={() => setIsReadOnly(false)}
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
               />
@@ -82,7 +92,9 @@ export default function Signup() {
             <input
               type="email"
               required
-              autoComplete="off"
+              autoComplete="email"
+              readOnly={isReadOnly}
+              onFocus={() => setIsReadOnly(false)}
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
             />
@@ -93,6 +105,8 @@ export default function Signup() {
               type="password"
               required
               autoComplete="new-password"
+              readOnly={isReadOnly}
+              onFocus={() => setIsReadOnly(false)}
               minLength={isAdmin ? undefined : 6}
               value={form.password}
               onChange={(e) => setForm({ ...form, password: e.target.value })}

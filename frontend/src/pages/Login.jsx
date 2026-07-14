@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
 import { getErrorMessage } from "../utils/helpers.js";
@@ -13,6 +13,14 @@ export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isReadOnly, setIsReadOnly] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsReadOnly(false);
+    }, 150);
+    return () => clearTimeout(timer);
+  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -68,13 +76,15 @@ export default function Login() {
             : "Log in to your workspace to upload files, generate reports, and manage your delivery pipelines."}
         </p>
 
-        <form onSubmit={handleSubmit} autoComplete="off">
+        <form onSubmit={handleSubmit}>
           <label>
             {isAdmin ? "Admin ID / Email" : "Email"}
             <input
               type="email"
               required
-              autoComplete="off"
+              autoComplete="email"
+              readOnly={isReadOnly}
+              onFocus={() => setIsReadOnly(false)}
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
             />
@@ -84,7 +94,9 @@ export default function Login() {
             <input
               type="password"
               required
-              autoComplete="new-password"
+              autoComplete="current-password"
+              readOnly={isReadOnly}
+              onFocus={() => setIsReadOnly(false)}
               value={form.password}
               onChange={(e) => setForm({ ...form, password: e.target.value })}
             />
